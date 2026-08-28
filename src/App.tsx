@@ -1,68 +1,71 @@
 import { useEffect, useState } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
+import { api, type Me } from "@/lib/api";
+import Login from "@/pages/Login";
+import AppHome from "@/pages/AppHome";
 
-type Health = { healthy: boolean; checks: Record<string, string> };
+type Auth = { state: "loading" } | { state: "out" } | { state: "in"; me: Me };
 
-/**
- * Slice 0 only. This screen exists to prove the scaffold is wired: one
- * deployable, D1 + KV + R2 all reachable, schema applied. Slice 1 replaces
- * it with the real login.
- */
-export default function App() {
-  const [health, setHealth] = useState<Health | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
+function useAuth(): Auth {
+  const [auth, setAuth] = useState<Auth>({ state: "loading" });
   useEffect(() => {
-    fetch("/api/health")
-      .then((r) => r.json() as Promise<Health>)
-      .then(setHealth)
-      .catch((e: Error) => setError(e.message));
+    api
+      .me()
+      .then(({ user }) => setAuth({ state: "in", me: user }))
+      .catch(() => setAuth({ state: "out" }));
   }, []);
+  return auth;
+}
+
+function Protected({ auth }: { auth: Auth }) {
+  const location = useLocation();
+  if (auth.state === "loading") return null;
+  if (auth.state === "out")
+    return <Navigate to="/login" replace state={{ from: location }} />;
+  return <AppHome me={auth.me} />;
+}
+
+function NotFound() {
+  return (
+    <main className="flex min-h-screen items-center justify-center">
+      <h1 className="font-display text-3xl font-medium tracking-tight">
+        This shelf is closed.
+      </h1>
+    </main>
+  );
+}
+
+export default function App() {
+  const auth = useAuth();
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-xl flex-col justify-center gap-8 px-7">
-      <div className="flex flex-col items-start gap-2">
-        <h1 className="font-display text-4xl font-medium tracking-tight">Shelf</h1>
-        <div className="w-36 shelf-edge" />
-      </div>
-
-      <p className="text-muted">
-        Scaffold only. No product yet. This page checks that the Worker, the
-        database, the file store and the session store are all reachable from
-        one deployable.
-      </p>
-
-      <div className="rounded-md border border-line bg-card p-5">
-        <div className="mb-3 text-xs uppercase tracking-[0.07em] text-muted">
-          Bindings
-        </div>
-
-        {error && <div className="text-sm text-rust">Request failed: {error}</div>}
-        {!health && !error && <div className="text-sm text-muted">Checking...</div>}
-
-        {health && (
-          <ul className="flex flex-col gap-2">
-            {Object.entries(health.checks).map(([name, result]) => {
-              const ok = result.startsWith("ok");
-              return (
-                <li key={name} className="flex items-baseline gap-3 text-sm">
-                  <span
-                    className="size-[7px] shrink-0 translate-y-[-1px] rounded-full"
-                    style={{ background: ok ? "var(--moss)" : "var(--rust)" }}
-                  />
-                  <span className="w-8 uppercase tracking-[0.07em] text-muted text-xs">
-                    {name}
-                  </span>
-                  <span className={ok ? "text-ink" : "text-rust"}>{result}</span>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </div>
-
-      <p className="text-sm text-muted">
-        Next: slice 1, magic link auth.
-      </p>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            auth.state === "in" ? (
+              <Navigate to="/app" replace />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            auth.state === "in" ? <Navigate to="/app" replace /> : <Login />
+          }
+        />
+        <Route path="/app" element={<Protected auth={auth} />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
