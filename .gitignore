@@ -1,0 +1,19 @@
+# Design canvas build output. ~2.4MB, regenerated from design/*.dc.html
+# by the design skill's seed-canvas.mjs. Never hand-edit it.
+design/shelf-v1-screens.html
+
+# Node
+node_modules/
+npm-debug.log*
+.npm/
+
+# Cloudflare / Wrangler
+.wrangler/
+.dev.vars
+.dev.vars.*
+dist/
+.env
+.env.*
+
+# OS
+.DS_Store

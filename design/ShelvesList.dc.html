@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+  <style>
+    body { margin:0; font-family:"IBM Plex Sans", system-ui, sans-serif; background:#f4efe6; color:#1c1914; }
+    a { color:#9b3d1f; text-decoration:none; } a:hover { color:#7d3018; }
+  </style>
+</helmet>
+
+<div style="width:1440px; height:900px; background:#f4efe6; display:flex; flex-direction:column;">
+
+  <div style="height:64px; border-bottom:1px solid #ddd3c4; display:flex; align-items:center; justify-content:space-between; padding:0 40px;">
+    <div style="font-family:Fraunces, Georgia, serif; font-size:20px; font-weight:600; letter-spacing:-0.01em;">Shelf</div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <div style="font-size:14px; color:#6b6459;">brian</div>
+      <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:#fbf8f3; background:#3d5a3a; border-radius:3px; padding:3px 9px;">Studio</div>
+      <div style="width:30px; height:30px; border-radius:3px; background:#1c1914; color:#f4efe6; display:flex; align-items:center; justify-content:center; font-family:Fraunces, Georgia, serif; font-size:14px;">B</div>
+    </div>
+  </div>
+
+  <div style="padding:48px 40px 0; display:flex; flex-direction:column;">
+
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:32px;">
+      <div>
+        <div style="font-family:Fraunces, Georgia, serif; font-size:40px; font-weight:500; letter-spacing:-0.015em; line-height:1.1;">Shelves</div>
+        <div style="font-size:14px; color:#6b6459; margin-top:6px;">Four clients. Nineteen tools.</div>
+      </div>
+      <div style="height:42px; background:#9b3d1f; border-radius:3px; display:flex; align-items:center; padding:0 22px; color:#fbf8f3; font-size:15px; font-weight:550;">New shelf</div>
+    </div>
+
+    <div style="display:flex; flex-direction:column;">
+
+      <div style="display:flex; align-items:center; gap:20px; background:#fbf8f3; border:1px solid #ddd3c4; border-radius:3px; padding:18px 20px; margin-bottom:12px;">
+        <div style="width:46px; height:46px; border-radius:3px; background:#e8dcc8; display:flex; align-items:center; justify-content:center; font-family:Fraunces, Georgia, serif; font-size:20px; color:#9b3d1f;">M</div>
+        <div style="flex-grow:1;">
+          <div style="font-family:Fraunces, Georgia, serif; font-size:20px; font-weight:500;">Maria's Bakery</div>
+          <div style="font-size:13px; color:#6b6459; margin-top:3px;">4 tools &middot; 2 sections &middot; updated 3 days ago</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:7px;">
+          <div style="width:7px; height:7px; border-radius:50%; background:#3d5a3a;"></div>
+          <div style="font-size:12px; text-transform:uppercase; letter-spacing:0.07em; color:#3d5a3a;">All live</div>
+        </div>
+        <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:#6b6459; border:1px solid #ddd3c4; border-radius:3px; padding:4px 10px; width:82px; text-align:center;">Unlisted</div>
+        <div style="font-size:13px; color:#9b3d1f; font-weight:550; width:88px; text-align:right;">Copy link</div>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:20px; background:#fbf8f3; border:1px solid #ddd3c4; border-radius:3px; padding:18px 20px; margin-bottom:12px;">
+        <div style="width:46px; height:46px; border-radius:3px; background:#dfe4da; display:flex; align-items:center; justify-content:center; font-family:Fraunces, Georgia, serif; font-size:20px; color:#3d5a3a;">D</div>
+        <div style="flex-grow:1;">
+          <div style="font-family:Fraunces, Georgia, serif; font-size:20px; font-weight:500;">Dan's Landscaping</div>
+          <div style="font-size:13px; color:#6b6459; margin-top:3px;">6 tools &middot; 2 sections &middot; updated 2 weeks ago</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:7px;">
+          <div style="width:7px; height:7px; border-radius:50%; background:#8a6d1f;"></div>
+          <div style="font-size:12px; text-transform:uppercase; letter-spacing:0.07em; color:#8a6d1f;">2 need confirming</div>
+        </div>
+        <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:#6b6459; border:1px solid #ddd3c4; border-radius:3px; padding:4px 10px; width:82px; text-align:center;">Password</div>
+        <div style="font-size:13px; color:#9b3d1f; font-weight:550; width:88px; text-align:right;">Copy link</div>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:20px; background:#fbf8f3; border:1px solid #ddd3c4; border-radius:3px; padding:18px 20px; margin-bottom:12px;">
+        <div style="width:46px; height:46px; border-radius:3px; background:#e8dcc8; display:flex; align-items:center; justify-content:center; font-family:Fraunces, Georgia, serif; font-size:20px; color:#9b3d1f;">N</div>
+        <div style="flex-grow:1;">
+          <div style="font-family:Fraunces, Georgia, serif; font-size:20px; font-weight:500;">Northside Dental</div>
+          <div style="font-size:13px; color:#6b6459; margin-top:3px;">5 tools &middot; 1 section &middot; updated yesterday</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:7px;">
+          <div style="width:7px; height:7px; border-radius:50%; background:#6b6459;"></div>
+          <div style="font-size:12px; text-transform:uppercase; letter-spacing:0.07em; color:#6b6459;">1 down</div>
+        </div>
+        <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:#6b6459; border:1px solid #ddd3c4; border-radius:3px; padding:4px 10px; width:82px; text-align:center;">Unlisted</div>
+        <div style="font-size:13px; color:#9b3d1f; font-weight:550; width:88px; text-align:right;">Copy link</div>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:20px; background:#fbf8f3; border:1px solid #ddd3c4; border-radius:3px; padding:18px 20px; margin-bottom:12px;">
+        <div style="width:46px; height:46px; border-radius:3px; background:#e2ddd2; display:flex; align-items:center; justify-content:center; font-family:Fraunces, Georgia, serif; font-size:20px; color:#6b6459;">H</div>
+        <div style="flex-grow:1;">
+          <div style="font-family:Fraunces, Georgia, serif; font-size:20px; font-weight:500;">Harbor Freight Co.</div>
+          <div style="font-size:13px; color:#6b6459; margin-top:3px;">4 tools &middot; no sections &middot; updated last month</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:7px;">
+          <div style="width:7px; height:7px; border-radius:50%; background:#3d5a3a;"></div>
+          <div style="font-size:12px; text-transform:uppercase; letter-spacing:0.07em; color:#3d5a3a;">All live</div>
+        </div>
+        <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:#6b6459; border:1px solid #ddd3c4; border-radius:3px; padding:4px 10px; width:82px; text-align:center;">Private</div>
+        <div style="font-size:13px; color:#6b6459; font-weight:550; width:88px; text-align:right;">Copy link</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

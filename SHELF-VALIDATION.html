@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shelf: validation and doc review</title>
+<style>
+  :root{
+    --paper:#f4efe6; --ink:#1c1914; --rust:#9b3d1f; --moss:#3d5a3a;
+    --muted:#6b6459; --line:#ddd3c4; --card:#fbf8f3; --warn:#8a6d1f;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:0; background:var(--paper); color:var(--ink);
+    font:16px/1.65 "IBM Plex Sans","Segoe UI",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;
+  }
+  .wrap{max-width:860px; margin:0 auto; padding:56px 28px 96px}
+  h1{font-family:Georgia,"Times New Roman",serif; font-size:40px; line-height:1.15; margin:0 0 6px; letter-spacing:-.01em}
+  h2{font-family:Georgia,serif; font-size:26px; margin:56px 0 14px; padding-top:22px; border-top:2px solid var(--ink)}
+  h3{font-size:17px; margin:28px 0 8px; letter-spacing:.01em}
+  .sub{color:var(--muted); font-size:15px; margin:0 0 34px}
+  p{margin:0 0 14px}
+  ul,ol{margin:0 0 14px; padding-left:22px}
+  li{margin:0 0 7px}
+  strong{font-weight:650}
+  code{background:#eae2d4; padding:1px 5px; border-radius:3px; font:13px/1.4 "SF Mono",Menlo,Consolas,monospace}
+
+  .verdict{background:var(--card); border:2px solid var(--ink); border-radius:4px; padding:24px 26px; margin:0 0 12px}
+  .verdict .tag{display:inline-block; background:var(--rust); color:#fff; font-size:12px; font-weight:700;
+    letter-spacing:.09em; text-transform:uppercase; padding:4px 10px; border-radius:3px; margin-bottom:12px}
+  .verdict p:last-child{margin-bottom:0}
+  .big{font-size:19px; line-height:1.5}
+
+  table{width:100%; border-collapse:collapse; margin:0 0 18px; font-size:14.5px}
+  th{text-align:left; background:#eae2d4; padding:9px 11px; border:1px solid var(--line); font-weight:650}
+  td{padding:9px 11px; border:1px solid var(--line); vertical-align:top}
+  td.n{width:38px; text-align:center; font-weight:700; color:var(--muted)}
+
+  .sev{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    padding:2px 7px; border-radius:3px; color:#fff; white-space:nowrap}
+  .s-high{background:var(--rust)} .s-med{background:var(--warn)} .s-low{background:var(--muted)}
+
+  .stat{display:flex; flex-wrap:wrap; gap:12px; margin:0 0 20px}
+  .stat div{flex:1 1 170px; background:var(--card); border:1px solid var(--line); border-left:4px solid var(--moss);
+    padding:14px 16px; border-radius:3px}
+  .stat b{display:block; font-family:Georgia,serif; font-size:30px; line-height:1.1; color:var(--moss)}
+  .stat span{font-size:13px; color:var(--muted); display:block; margin-top:4px}
+
+  .kill{background:var(--card); border:1px solid var(--line); border-left:4px solid var(--rust);
+    padding:16px 18px; border-radius:3px; margin:0 0 14px}
+  .kill h3{margin:0 0 6px; color:var(--rust)}
+  .kill p:last-child{margin-bottom:0}
+
+  .good{border-left-color:var(--moss)}
+  .good h3{color:var(--moss)}
+
+  .ask{background:#efe8db; border:1px dashed var(--muted); padding:18px 20px; border-radius:4px}
+  .ask ol{margin-bottom:0}
+
+  footer{margin-top:56px; padding-top:18px; border-top:1px solid var(--line); font-size:13px; color:var(--muted)}
+  footer a{color:var(--muted)}
+  .src{font-size:13px; color:var(--muted)}
+  .src a{color:var(--muted); word-break:break-word}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Shelf</h1>
+<p class="sub">Validation and review of SHELF_HANDOFF.md &middot; 27 August 2026</p>
+
+<div class="verdict">
+  <span class="tag">Verdict</span>
+  <p class="big"><strong>Good product, wrong first customer.</strong> The pain is real and the market data backs it. The document sells it to the one persona least likely to need it, and prices it as a consumer SaaS in a category where consumer SaaS is dying weekly.</p>
+  <p class="big" style="margin-bottom:0">Build it. Ship the <strong>agency client shelf as v1</strong>, not v1.5. You are user zero, you have five live client engagements that need it this quarter, and it moves the payer from a bakery owner paying $12 to an agency paying $29 and up for something it uses on every handoff.</p>
+</div>
+
+<h2>1. Does the trend hold up</h2>
+
+<p>Mostly yes. Grok pointed you at something real. The numbers are better than I expected on the problem, and worse than the doc assumes on the customer.</p>
+
+<div class="stat">
+  <div><b>63%</b><span>of vibe coding users identify as non-developers</span></div>
+  <div><b>~50%</b><span>of the 60+ AI app builders launched in 2025 were dead by April 2026</span></div>
+  <div><b>8%</b><span>30-day retention on a vibe coding builder that shipped and churned</span></div>
+  <div><b>2 in 3</b><span>US small businesses now use AI regularly</span></div>
+</div>
+
+<p><strong>What is genuinely validated:</strong></p>
+<ul>
+  <li>Non-developers really are shipping software now. That is not hype, it is the majority of the user base of these tools.</li>
+  <li>The market has openly named the gap you are aiming at. The consensus post-mortem on the dead builders is that the value is in what happens <em>after</em> generation, and that a product ending at "here is some code" ends there too. Shelf is an after-generation product. That is the right side of the line.</li>
+  <li>There is no direct competitor. I searched for a cross-platform shelf with version memory and client sharing and found listing directories, indie-maker portfolios, and link-in-bio tools, none of which do the job. The closest adjacent products solve discovery, not recall.</li>
+</ul>
+
+<p><strong>What is not validated, and the doc assumes it is:</strong></p>
+<ul>
+  <li>That a business owner ships enough tools to need a shelf. Nothing in the data supports that. Maria with four tools uses a bookmark folder and is right to.</li>
+  <li>That anyone pays for it standalone. No evidence either way, and the base rate in this category is grim.</li>
+</ul>
+
+<h2>2. The four things that would kill it</h2>
+
+<div class="kill">
+  <h3>1. The N problem, and it is the big one</h3>
+  <p>A shelf earns its keep somewhere north of eight tools. Below that a browser bookmark folder wins on every axis including zero setup. The doc's own persona has four. The people who actually clear eight are agencies, prolific indie builders, and developers, and the last group already uses git.</p>
+  <p>So the product is designed for people who ship a lot and sold to people who ship a little. That contradiction sits at the center of the doc and nothing downstream resolves it.</p>
+</div>
+
+<div class="kill">
+  <h3>2. Frequency is too low to hold a subscription</h3>
+  <p>Write on Friday, read on Monday, then nothing for three weeks. Low-frequency products do not build habit, and habit is what makes someone not cancel. Linktree gets away with it on network effects that Shelf will not have. $12 a month is a Linktree price with none of the Linktree distribution.</p>
+</div>
+
+<div class="kill">
+  <h3>3. A stale shelf is worse than no shelf, and you already know this</h3>
+  <p>If the builder churns at 8% retention, the shelf goes stale, and a stale shelf actively misleads. The failure mode is a card reading LIVE months after the thing behind it died. Shelf's schema has no defence against it, and its live-check only proves a URL returns 200, which is not the same as the tool being real or in use. A status with no date beside it is not a fact.</p>
+</div>
+
+<div class="kill">
+  <h3>4. The marketing hook sells to the wrong room</h3>
+  <p>"GitHub for people who will never type git" is a hook for Hacker News, not for a bakery. A business owner has never thought about GitHub and does not want a GitHub. That line will bring you developers, who will not pay for this and will ask why it does not do diffs.</p>
+  <p>The doc's second hook is the right one and should be the only one: <em>Park the tool you shipped. Find it Monday.</em></p>
+</div>
+
+<h2>3. The reframe: invert the tiers</h2>
+
+<p>The doc puts the client shelf at v1.5 and the agency plan at tier three. That is backwards. The agency case is the only one where all the economics work at once:</p>
+
+<table>
+  <tr><th>&nbsp;</th><th>Owner shelf (doc's v1)</th><th>Client shelf (doc's v1.5)</th></tr>
+  <tr><td><strong>Tool count</strong></td><td>3 to 5. Below the threshold where a shelf beats bookmarks.</td><td>Dozens across clients. Comfortably above it.</td></tr>
+  <tr><td><strong>Frequency</strong></td><td>Every few weeks, if that.</td><td>Every engagement, every handoff, every status check.</td></tr>
+  <tr><td><strong>Who pays</strong></td><td>An owner, $12, reluctantly.</td><td>An agency, $29+, as a cost of doing business.</td></tr>
+  <tr><td><strong>Churn when they stop building</strong></td><td>Immediate. Nothing left to shelf.</td><td>The shelf is the client record. It outlives the building.</td></tr>
+  <tr><td><strong>First real user</strong></td><td>A stranger you have to find.</td><td>You, next week, on two live client engagements.</td></tr>
+</table>
+
+<p>Same schema, same screens, same build. What changes is which one you finish first and who you show it to. The doc even predicts this in its own business note ("wedge value is high next to real owner tools") and then does not act on it.</p>
+
+<h2>4. Review of the handoff doc</h2>
+
+<p>The doc itself is well built. Explicit non-goals, an ordered build sequence, a kill test, and a cut list are more discipline than most PRDs carry, and the kill test should survive verbatim into the PRD. Findings below are things that will bite during the build, ordered by what they cost.</p>
+
+<table>
+  <tr><th class="n">#</th><th>Finding</th><th style="width:92px">Severity</th></tr>
+
+  <tr><td class="n">1</td><td>
+    <strong>The public route cannot work as specified.</strong> <code>shelves</code> is <code>UNIQUE(user_id, slug)</code>, but <code>GET /s/:slug</code> looks up by slug alone with no user in the path. Two users both slugged <code>maria-bakery</code> and the route is ambiguous. Fix: make <code>slug</code> globally unique, or route <code>/s/:handle/:slug</code>. Globally unique is the better product, it keeps links short.
+  </td><td><span class="sev s-high">High</span></td></tr>
+
+  <tr><td class="n">2</td><td>
+    <strong>Cloudflare Pages cannot do slice 5.</strong> Pages does not support Cron Triggers. It also does not support Email Workers, Queue Consumers, or the Rate Limiting binding. So "keep it one deployable Pages project" directly conflicts with the scheduled live-check and with magic link. Fix: build on <strong>Workers with static assets</strong> instead of Pages. Same git-push deploy, same D1/R2/KV bindings, and cron, email and rate limiting all live in the one deployable. Decide it now, not at slice 5.
+  </td><td><span class="sev s-high">High</span></td></tr>
+
+  <tr><td class="n">3</td><td>
+    <strong>No ownership check is specified on the write routes.</strong> The doc says session required and tests that public JSON does not leak prompts, but never states that <code>PATCH /api/tools/:id</code> must verify the tool belongs to the caller's shelf. That is the classic IDOR, it is trivially exploitable, and no validation item covers it. Add the check and add a test for it.
+  </td><td><span class="sev s-high">High</span></td></tr>
+
+  <tr><td class="n">4</td><td>
+    <strong>The live-check is an open fetch proxy.</strong> A Worker fetching arbitrary user-supplied URLs on a cron, plus an owner-triggered <code>/ping</code>, needs scheme allowlisting (http and https only), blocking of localhost, private ranges and cloud metadata endpoints, a redirect cap, and a rate limit on <code>/ping</code>. Section F thinks about secrets in URLs and misses this entirely.
+  </td><td><span class="sev s-high">High</span></td></tr>
+
+  <tr><td class="n">5</td><td>
+    <strong>Magic link has no working email path.</strong> Cloudflare Email Routing on its own can only send to <em>verified destination addresses</em> on your account, which is useless for signing up strangers. You would need to onboard a sending domain through Cloudflare Email Service, and Email Workers are unavailable on Pages anyway (see #2). You already run SendGrid at 50k a month. Use it and stop deciding.
+  </td><td><span class="sev s-med">Medium</span></td></tr>
+
+  <tr><td class="n">6</td><td>
+    <strong>There is no delete route.</strong> Section 6 has create, patch, reorder, snapshot and ping, and no <code>DELETE</code> for a tool or a shelf. Users add junk in the first ten minutes. Shipping without delete guarantees a support request on day one.
+  </td><td><span class="sev s-med">Medium</span></td></tr>
+
+  <tr><td class="n">7</td><td>
+    <strong>No foreign keys and no cascade behaviour.</strong> Delete a shelf and its tools, snapshots and view rows orphan silently. Once #6 exists this matters. Declare the FKs and the <code>ON DELETE</code> rules in the migration.
+  </td><td><span class="sev s-med">Medium</span></td></tr>
+
+  <tr><td class="n">8</td><td>
+    <strong><code>views</code> costs a D1 write per public page view.</strong> Write amplification on the one table with unbounded traffic, and the doc asks for "views this week" while the schema stores per-day rows with no rollup specified. Either batch through a KV counter, or accept per-day writes and rate limit by IP, but decide deliberately. It is also the least valuable feature in v1 and a fine cut.
+  </td><td><span class="sev s-med">Medium</span></td></tr>
+
+  <tr><td class="n">9</td><td>
+    <strong>Screenshot format contradicts itself.</strong> R2 keys are <code>.webp</code>, section 14 says accept png/jpg and store as uploaded. Nothing transcodes. Pick storing as uploaded and key on the real extension.
+  </td><td><span class="sev s-low">Low</span></td></tr>
+
+  <tr><td class="n">10</td><td>
+    <strong>No staleness signal on a card.</strong> Per point 3 above, port <code>confirmed_at</code> from the entities registry: a "still true" affirmation with a date, and a quiet flag past 90 days. A green dot proving a URL returns 200 is not evidence the tool is still in use.
+  </td><td><span class="sev s-med">Medium</span></td></tr>
+
+  <tr><td class="n">11</td><td>
+    <strong><code>shelf-mockup.html</code> does not exist.</strong> Section 7 names it as the visual reference. The folder contains only the handoff doc. Either it never got saved or it is still in the Grok session.
+  </td><td><span class="sev s-low">Low</span></td></tr>
+
+  <tr><td class="n">12</td><td>
+    <code>idx_users_handle</code> is redundant, <code>UNIQUE</code> already creates that index in SQLite. Cosmetic, but it is the tell that the schema was written rather than reviewed.
+  </td><td><span class="sev s-low">Low</span></td></tr>
+</table>
+
+<h2>5. What I need from you before writing the PRD</h2>
+
+<div class="ask">
+<ol>
+  <li><strong>Agency-first or owner-first.</strong> My recommendation is agency-first for the reasons in section 3. Owner-first is defensible if the goal is a public launch story rather than a working asset, but say which.</li>
+  <li><strong>Is this a product or an in-house tool.</strong> Genuinely different PRDs. A product needs auth, billing, multi-tenancy and a landing page. An in-house tool needs one shelf per client and no signup at all, and could be live in a week.</li>
+  <li><strong>Does the mockup exist.</strong> If it is still in the Grok session, paste it, it saves a design pass.</li>
+</ol>
+</div>
+
+<h2>Sources</h2>
+<p class="src">
+Taskade, <a href="https://www.taskade.com/blog/vibe-coding-graveyard">The Vibe Coding Graveyard</a> and <a href="https://www.taskade.com/blog/state-of-vibe-coding">State of Vibe Coding in 2026</a> &middot;
+Product Hunt, <a href="https://www.producthunt.com/p/vibecoding/has-anyone-found-a-good-solution-for-keeping-vibe-coded-apps-stable-after-launch">keeping vibe-coded apps stable after launch</a> &middot;
+Redwerk, <a href="https://redwerk.com/blog/vibe-code-maintenance/">Vibe-Coded App Maintenance</a> &middot;
+<a href="https://vibegraveyard.ai/">Vibe Graveyard</a> &middot;
+Capsule CRM, <a href="https://capsulecrm.com/blog/small-business-ai-adoption-statistics/">Small business AI adoption statistics 2026</a> &middot;
+SaaSCity, <a href="https://saascity.io/blog/best-directories-vibe-coded-apps-2026">Where to list a vibe-coded app</a> &middot;
+<a href="https://wabiai.ai/4-wabis-product-shape-mini-apps-on-top-of-a-you-os.html">Wabi product shape</a> &middot;
+Cloudflare, <a href="https://developers.cloudflare.com/workers/static-assets/migration-guides/migrate-from-pages/">Pages to Workers feature matrix</a> and <a href="https://developers.cloudflare.com/email-routing/limits/">Email Routing limits</a>
+</p>
+
+<footer>
+Reviewed against SHELF_HANDOFF.md
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+  <style>
+    body { margin:0; font-family:"IBM Plex Sans", system-ui, sans-serif; background:#f4efe6; color:#1c1914; }
+    a { color:#9b3d1f; text-decoration:none; } a:hover { color:#7d3018; }
+  </style>
+</helmet>
+
+<div style="width:1200px; height:760px; background:#f4efe6; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:56px;">
+
+  <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+    <div style="font-family:Fraunces, Georgia, serif; font-size:34px; font-weight:600; letter-spacing:-0.015em;">Shelf</div>
+    <div style="width:150px; height:2px; background:#1c1914;"></div>
+    <div style="width:150px; height:1px; background:#ddd3c4; margin-top:3px;"></div>
+  </div>
+
+  <div style="width:420px; background:#fbf8f3; border:1px solid #ddd3c4; border-radius:3px; padding:40px 40px 32px;">
+    <div style="font-family:Fraunces, Georgia, serif; font-size:27px; font-weight:500; letter-spacing:-0.01em; margin-bottom:8px;">Sign in to your shelf.</div>
+    <div style="font-size:14px; color:#6b6459; line-height:1.55; margin-bottom:32px;">We send a link. No password to forget.</div>
+
+    <div style="font-size:12px; text-transform:uppercase; letter-spacing:0.07em; color:#6b6459; margin-bottom:8px;">Email</div>
+    <div style="height:46px; border:1px solid #ddd3c4; border-radius:3px; background:#f4efe6; display:flex; align-items:center; padding:0 14px; font-size:16px; color:#1c1914; margin-bottom:20px;">you@studio.co</div>
+
+    <div style="height:46px; background:#9b3d1f; border-radius:3px; display:flex; align-items:center; justify-content:center; color:#fbf8f3; font-size:16px; font-weight:550;">Send the link</div>
+  </div>
+
+  <div style="font-size:14px; color:#6b6459;">No account yet? <a href="#">Start a shelf.</a></div>
+
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shelf PRD v1</title>
+<style>
+  :root{
+    --paper:#f4efe6; --ink:#1c1914; --rust:#9b3d1f; --moss:#3d5a3a;
+    --muted:#6b6459; --line:#ddd3c4; --card:#fbf8f3; --amber:#8a6d1f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--paper); color:var(--ink);
+    font:16px/1.65 "IBM Plex Sans","Segoe UI",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}
+  .wrap{max-width:900px; margin:0 auto; padding:56px 28px 96px}
+  h1{font-family:Georgia,"Times New Roman",serif; font-size:42px; line-height:1.12; margin:0 0 6px; letter-spacing:-.015em}
+  h2{font-family:Georgia,serif; font-size:27px; margin:58px 0 14px; padding-top:22px; border-top:2px solid var(--ink)}
+  h3{font-size:17px; margin:30px 0 8px}
+  h4{font-size:15px; margin:20px 0 6px; color:var(--muted); text-transform:uppercase; letter-spacing:.07em}
+  .sub{color:var(--muted); font-size:15px; margin:0 0 34px}
+  p{margin:0 0 14px} ul,ol{margin:0 0 14px; padding-left:22px} li{margin:0 0 7px}
+  code{background:#eae2d4; padding:1px 5px; border-radius:3px; font:13px/1.4 "SF Mono",Menlo,Consolas,monospace}
+  pre{background:var(--ink); color:#e8e0d2; padding:18px 20px; border-radius:4px; overflow-x:auto;
+    font:12.5px/1.65 "SF Mono",Menlo,Consolas,monospace; margin:0 0 18px}
+  pre code{background:none; padding:0; color:inherit; font-size:inherit}
+
+  .lede{background:var(--card); border:2px solid var(--ink); border-radius:4px; padding:24px 26px; margin:0 0 14px}
+  .lede p{font-size:19px; line-height:1.5} .lede p:last-child{margin-bottom:0}
+  .tag{display:inline-block; background:var(--rust); color:#fff; font-size:12px; font-weight:700;
+    letter-spacing:.09em; text-transform:uppercase; padding:4px 10px; border-radius:3px; margin-bottom:12px}
+
+  table{width:100%; border-collapse:collapse; margin:0 0 18px; font-size:14.5px}
+  th{text-align:left; background:#eae2d4; padding:9px 11px; border:1px solid var(--line); font-weight:650}
+  td{padding:9px 11px; border:1px solid var(--line); vertical-align:top}
+
+  .box{background:var(--card); border:1px solid var(--line); border-left:4px solid var(--moss);
+    padding:16px 18px; border-radius:3px; margin:0 0 16px}
+  .box.warn{border-left-color:var(--rust)}
+  .box.note{border-left-color:var(--amber)}
+  .box h3{margin:0 0 6px} .box p:last-child,.box ul:last-child{margin-bottom:0}
+
+  .slice{border:1px solid var(--line); background:var(--card); border-radius:4px; padding:16px 18px; margin:0 0 12px}
+  .slice h3{margin:0 0 8px; display:flex; align-items:baseline; gap:10px}
+  .slice h3 span{font-family:Georgia,serif; font-size:13px; color:#fff; background:var(--ink);
+    padding:2px 9px; border-radius:20px; letter-spacing:.04em}
+  .slice ul{margin-bottom:0}
+
+  .sw{display:flex; flex-wrap:wrap; gap:10px; margin:0 0 18px}
+  .sw div{flex:0 0 122px; border:1px solid var(--line); border-radius:3px; overflow:hidden; background:var(--card)}
+  .sw i{display:block; height:52px}
+  .sw b{display:block; font-size:12px; padding:6px 8px 1px; font-weight:650}
+  .sw span{display:block; font:11px/1.5 "SF Mono",Menlo,monospace; color:var(--muted); padding:0 8px 7px}
+
+  .do{display:flex; gap:16px; flex-wrap:wrap; margin:0 0 18px}
+  .do > div{flex:1 1 300px; border:1px solid var(--line); border-radius:3px; padding:14px 16px; background:var(--card)}
+  .do h4{margin-top:0}
+  .do ul{margin-bottom:0; padding-left:18px; font-size:14.5px}
+  .yes{border-left:4px solid var(--moss)} .no{border-left:4px solid var(--rust)}
+
+  .copy{background:#efe8db; border:1px dashed var(--muted); border-radius:4px; padding:20px 22px; margin:0 0 18px}
+  .copy p:last-child{margin-bottom:0}
+  footer{margin-top:56px; padding-top:18px; border-top:1px solid var(--line); font-size:13px; color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Shelf</h1>
+<p class="sub">Product requirements, v1 &middot; 27 August 2026 &middot; Lighthouse 27 LLC</p>
+
+<div class="lede">
+  <span class="tag">One line</span>
+  <p>Shelf is where an agency parks every tool it built for a client, on one link the client can actually use.</p>
+  <p style="margin-bottom:0">A standalone product, not an in-house tool.</p>
+</div>
+
+<h2>1. Why this exists</h2>
+
+<p>People who cannot write code now ship real software, and 63% of vibe coding users are non-developers. The tools land on Pages, Lovable, Replit, v0. Then they scatter. Six weeks later nobody can find the URL, nobody remembers the prompt that built it, and nobody knows whether the thing is still up.</p>
+
+<p>This hurts agencies more than it hurts owners, because an agency has the volume. An owner has four tools and a bookmark folder. An agency has forty across nine clients, and every one of them is a thing it has to remember, prove it delivered, and hand over cleanly.</p>
+
+<p>So Shelf is sold to the agency and used by the client. The agency gets recall and a handoff artifact. The client gets one link that always works.</p>
+
+<div class="box">
+  <h3>The renewal argument, which is the real sale</h3>
+  <p>A live page showing every tool you built for a client, with status and version notes, is the most efficient reminder of value delivered that an agency can own. It is worth $29 a month at renewal time on its own, before anyone talks about convenience.</p>
+</div>
+
+<h2>2. Who it is for</h2>
+
+<table>
+  <tr><th style="width:130px">&nbsp;</th><th>Primary</th><th>Secondary</th></tr>
+  <tr><td><strong>Who</strong></td><td>Solo agency or small studio shipping AI-built tools for clients</td><td>The prolific solo builder with 10+ live things</td></tr>
+  <tr><td><strong>Volume</strong></td><td>10 to 60 tools across 3 to 12 clients</td><td>10 to 30 tools, one shelf</td></tr>
+  <tr><td><strong>Pays because</strong></td><td>Handoff, recall, and proof of delivery. Cost of doing business.</td><td>Recall. Nice to have.</td></tr>
+  <tr><td><strong>Design for</strong></td><td>Yes. Every v1 decision resolves in favour of this person.</td><td>Falls out for free. Do not add features for them.</td></tr>
+</table>
+
+<p>The client is a third party who never signs up, never logs in, and never sees a settings screen. They receive a link.</p>
+
+<h2>3. Non-goals</h2>
+
+<div class="do">
+  <div class="yes">
+    <h4>In v1</h4>
+    <ul>
+      <li>Auth and accounts</li>
+      <li>Multiple shelves per account</li>
+      <li>Tool cards with screenshots</li>
+      <li>Private, unlisted, password, public</li>
+      <li>Client branding per shelf</li>
+      <li>Prompt pocket and version notes</li>
+      <li>Live check and staleness</li>
+      <li>Soft plan caps with a banner</li>
+    </ul>
+  </div>
+  <div class="no">
+    <h4>Not in v1, and mostly not ever</h4>
+    <ul>
+      <li>Any kind of app generator</li>
+      <li>Hosting other people's runtimes</li>
+      <li>Git, diffs, CI, code storage</li>
+      <li>Likes, comments, feeds, remix</li>
+      <li>Team seats and roles</li>
+      <li>Custom domains (column reserved)</li>
+      <li>Stripe billing (v1.5, gated on the kill test)</li>
+      <li>View analytics (v1.5, see 7.4)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box warn">
+  <h3>The one that matters</h3>
+  <p>Do not pivot into an app builder. Half the AI app builders launched in 2025 were dead by April 2026. Shelf survives by being the thing that outlives them, and it only does that if it never competes with them.</p>
+</div>
+
+<h2>4. Jobs to be done</h2>
+
+<ol>
+  <li><strong>Park it.</strong> Friday, tool is live. Title, one sentence, URL, screenshot, prompt. Thirty seconds, no ceremony.</li>
+  <li><strong>Find it Monday.</strong> Which link is the real one, what did I prompt, is it still up.</li>
+  <li><strong>Hand it over.</strong> Send one link. Client sees only their tools, branded to them, with no trace of anyone else's work.</li>
+  <li><strong>Ship v2 without losing v1.</strong> Swap the URL, write eight words about what changed, and be able to go back.</li>
+  <li><strong>Prove it is still true.</strong> A card that has not been confirmed in 90 days says so, out loud.</li>
+</ol>
+
+<p>If any step requires git knowledge, the product failed. The UI never says branch, commit, repo, pull, merge, diff, or README.</p>
+
+<h2>5. Product model</h2>
+
+<p>This is the significant change from the original handoff. The unit is not "a user and their shelf." It is an account holding many shelves, one per client.</p>
+
+<pre><code>account (= one user in v1, seats come later)
+  └── shelf                one per client. Own slug, branding, visibility.
+        └── section        optional. A project inside the client. Free text.
+              └── tool     title, sentence, live URL, screenshot, prompt, status
+                    └── version   a frozen previous URL + prompt + note</code></pre>
+
+<h4>A client with several projects</h4>
+<p>This is the normal case, not the edge case. One client can easily carry a marketing
+site, a customer-facing app, and a back office, and each of those has its own two to six
+tools. A flat grid of twenty cards under one client name is unreadable by about card
+twelve.</p>
+
+<p>So a tool carries an optional free-text <code>section</code>. The client shelf renders
+one heading and one shelf rule per section, in the order the sections first appear.
+A tool with no section sits in an unnamed first group, so a small shelf looks exactly
+as it does today and nobody is forced to think about grouping until they have enough
+tools to need it.</p>
+
+<p>Sections are deliberately free text rather than a table. There is nothing to manage,
+no CRUD screen, no ordering UI: you type "Back office" into the drawer and the section
+exists. Sections order by the lowest <code>sort_order</code> among their tools, so
+reordering cards reorders sections for free.</p>
+
+<div class="box">
+  <h3>Why this and not a shelf per project</h3>
+  <p>The alternative is letting one client own several shelves, which needs a client
+  entity above shelves and a navigation level under it. It also breaks the thing the
+  product is for: the client would get three links instead of one, which is the
+  scattering problem Shelf exists to end. One client, one link, sections inside it.</p>
+</div>
+
+<div class="box note">
+  <h3>Deliberately not built</h3>
+  <p>No separate <code>clients</code> table and no <code>sections</code> table. A shelf is a client, a section is a string. Both would add a join and a management screen and buy nothing in v1. No teams, no roles, no seats: one account is one login. Revisit only if a paying customer asks.</p>
+</div>
+
+<h4>Visibility, which is the whole handoff feature</h4>
+<table>
+  <tr><th style="width:120px">Mode</th><th>Behaviour</th></tr>
+  <tr><td><strong>private</strong></td><td>Default. Owner only. Any stranger hitting the URL gets a 404 with "This shelf is closed." Never a 403, which confirms the shelf exists.</td></tr>
+  <tr><td><strong>unlisted</strong></td><td>Reachable by link, <code>noindex</code>, not listed anywhere. The normal client mode.</td></tr>
+  <tr><td><strong>password</strong></td><td>Unlisted plus a passphrase. For client work that is genuinely confidential. In v1 because agencies need it, not v1.5.</td></tr>
+  <tr><td><strong>public</strong></td><td>Indexed, listed on the owner's public profile. For portfolio use.</td></tr>
+</table>
+<p>A tool cannot be more visible than its shelf. Clamp on write, do not validate in the UI only.</p>
+
+<h2>6. Screens</h2>
+
+<h3>Marketing <code>/</code></h3>
+<p>One hook, one screenshot of a real client shelf, one CTA. Hook: <strong>Every tool you built them. One link.</strong> Do not use "GitHub for people who will never type git" anywhere. It sells to developers, who will not pay for this.</p>
+
+<h3>Login <code>/login</code></h3>
+<p>One card, one field, magic link. "Sign in to your shelf." No password, no OAuth, no social buttons.</p>
+
+<h3>Shelves list <code>/app</code></h3>
+<p>The home screen. A row per client shelf: client name, tool count, visibility pill, last activity, live/down/stale roll-up. Primary action: <strong>New shelf</strong>. Empty state headline: <em>One shelf per client. Start with one.</em></p>
+
+<h3>Shelf detail <code>/app/:shelf</code></h3>
+<p>The tool grid. Shelf title and blurb inline-editable, visibility control, <strong>Copy client link</strong> as a prominent button not a menu item, and <strong>Add a tool</strong>. Cards reorder by drag with up/down as fallback. Empty state: <em>You shipped it. Park it here.</em></p>
+
+<h3>Add tool drawer</h3>
+<p>Fields in this exact order. Order is the spec, do not rearrange.</p>
+<ol>
+  <li>Title</li><li>One sentence</li><li>Live URL</li><li>Screenshot drop zone</li>
+  <li>Section (free text, autocompletes from sections already on this shelf)</li>
+  <li>Tag chips</li><li>Visibility (inherits shelf, private default)</li>
+  <li>Prompt pocket (textarea, optional)</li><li>Builder chip and builder URL (optional)</li>
+</ol>
+<p>Primary button: <strong>Put it on the shelf</strong>. No draft state. Save creates the card. Only title and live URL are required.</p>
+
+<h3>Client shelf <code>/s/:slug</code></h3>
+<p>What the client sees. Client logo and accent if set, shelf title, blurb, then the
+grid. If any tool has a section, the grid breaks into one titled run of cards per
+section, each on its own shelf rule. No Shelf chrome beyond a small footer badge on the
+free plan. No login prompt. No settings. Nothing that reveals other clients exist.</p>
+
+<h3>Tool detail <code>/s/:slug/:tool</code></h3>
+<p>Large screenshot, title, sentence, <strong>Open tool</strong>, tag, latest version note, status. Owner sees three extra blocks the client never does: prompt pocket, version list with <strong>Make this live</strong>, and the builder link.</p>
+
+<h3>404</h3>
+<p>"This shelf is closed." Nothing else. No search box, no home link that leaks branding.</p>
+
+<h2>7. Data model</h2>
+
+<p>Changes from the handoff schema are called out below the SQL. TEXT ulid ids, INTEGER epoch ms timestamps.</p>
+
+<pre><code>CREATE TABLE users (
+  id          TEXT PRIMARY KEY,
+  handle      TEXT UNIQUE NOT NULL,
+  name        TEXT NOT NULL,
+  email       TEXT UNIQUE NOT NULL,
+  plan        TEXT NOT NULL DEFAULT 'free',
+  created_at  INTEGER NOT NULL
+);
+
+CREATE TABLE shelves (
+  id            TEXT PRIMARY KEY,
+  user_id       TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  slug          TEXT NOT NULL UNIQUE,          -- GLOBALLY unique, see note 1
+  title         TEXT NOT NULL,
+  blurb         TEXT,
+  client_name   TEXT,                          -- shown to the client
+  logo_key      TEXT,                          -- R2 key
+  accent        TEXT,                          -- hex, client accent colour
+  visibility    TEXT NOT NULL DEFAULT 'private',
+  password_hash TEXT,
+  custom_domain TEXT,                          -- reserved, unused in v1
+  sort_order    INTEGER NOT NULL DEFAULT 0,
+  created_at    INTEGER NOT NULL,
+  updated_at    INTEGER NOT NULL
+);
+
+CREATE TABLE tools (
+  id             TEXT PRIMARY KEY,
+  shelf_id       TEXT NOT NULL REFERENCES shelves(id) ON DELETE CASCADE,
+  title          TEXT NOT NULL,
+  blurb          TEXT,
+  live_url       TEXT NOT NULL,
+  screenshot_key TEXT,
+  section        TEXT,                          -- project group inside the shelf, note 5
+  tag            TEXT,
+  visibility     TEXT NOT NULL DEFAULT 'private',
+  sort_order     INTEGER NOT NULL DEFAULT 0,
+  version        INTEGER NOT NULL DEFAULT 1,
+  status         TEXT NOT NULL DEFAULT 'live',  -- live | down | draft
+  checked_at     INTEGER,                       -- last live check
+  confirmed_at   INTEGER,                       -- last HUMAN confirmation, note 2
+  prompt         TEXT,
+  builder        TEXT,
+  builder_url    TEXT,
+  created_at     INTEGER NOT NULL,
+  updated_at     INTEGER NOT NULL
+);
+
+CREATE TABLE snapshots (
+  id             TEXT PRIMARY KEY,
+  tool_id        TEXT NOT NULL REFERENCES tools(id) ON DELETE CASCADE,
+  version        INTEGER NOT NULL,
+  live_url       TEXT,
+  screenshot_key TEXT,
+  prompt         TEXT,
+  note           TEXT,                          -- max 80 chars
+  created_at     INTEGER NOT NULL
+);
+
+CREATE INDEX idx_shelves_user     ON shelves(user_id, sort_order);
+CREATE INDEX idx_tools_shelf      ON tools(shelf_id, sort_order);
+CREATE INDEX idx_snapshots_tool   ON snapshots(tool_id, version);</code></pre>
+
+<h4>1. Slug is globally unique</h4>
+<p>The original was <code>UNIQUE(user_id, slug)</code> while the public route was <code>/s/:slug</code> with no user in the path. Two accounts both slugged <code>maria-bakery</code> and the route cannot resolve. Global uniqueness keeps client links short, which matters because the client pastes them into email.</p>
+
+<h4>2. confirmed_at</h4>
+<p>A green dot proving a URL returns 200 does not prove the tool is still real or in use. The failure this prevents is a card reading LIVE months after the thing behind it died. Every card carries the date a human last said it was true. Past 90 days the card shows a quiet <em>Needs confirming</em>, and a <strong>Still true</strong> action re-dates it without inventing an edit. Changing the URL, status, or prompt re-dates it automatically.</p>
+
+<h4>3. Foreign keys with cascade</h4>
+<p>The original declared none, so deleting a shelf orphaned everything under it. D1 enforces FKs per session. Since v1 has real delete routes (the original had none at all), this is required, not tidy.</p>
+
+<h4>4. views table dropped from v1</h4>
+<p>It was a D1 write per public page view, on the one table with unbounded traffic, to produce the least valuable number in the product. Ships in v1.5 as a KV counter flushed on a schedule, if anyone asks for it.</p>
+
+<h4>5. section is free text, tag stays an enum</h4>
+<p>They are different axes and both are useful. <code>section</code> answers "which
+project of theirs is this part of" and has to be whatever the client calls it.
+<code>tag</code> answers "what kind of tool is this" and stays a closed list so the
+filter chips remain a fixed, predictable set. Neither replaces the other.</p>
+
+<h4>Enums</h4>
+<p><code>plan</code>: free, studio. <code>visibility</code>: private, unlisted, password, public. <code>tag</code>: invoicing, booking, inventory, internal, other. <code>status</code>: live, down, draft. <code>builder</code>: pages, lovable, replit, v0, bolt, claude, other.</p>
+
+<h4>KV and R2</h4>
+<pre><code>KV   session:{token}        30 day TTL
+     magic:{token}          15 minute TTL, single use
+     rate:{ip}:{action}     signup, magic link, ping
+     shelfpw:{shelf_id}:{token}   client passphrase session
+
+R2   shots/{user_id}/{tool_id}.{ext}          current screenshot
+     shots/{user_id}/{tool_id}/v{n}.{ext}     frozen at snapshot
+     logos/{user_id}/{shelf_id}.{ext}</code></pre>
+<p>Store as uploaded, key on the real extension. The original keyed everything <code>.webp</code> while specifying png/jpg passthrough, and nothing transcoded.</p>
+
+<h2>8. API</h2>
+
+<pre><code>PUBLIC
+GET    /                             marketing
+GET    /s/:slug                      client shelf
+POST   /s/:slug/unlock               passphrase, sets shelfpw session
+GET    /s/:slug/:tool                tool detail
+GET    /og/:slug                     OG image (static meta in v1)
+
+AUTH
+GET    /login
+POST   /api/auth/magic               rate limited by IP and by email
+GET    /api/auth/callback            single-use token, then KV session
+POST   /api/auth/logout
+
+APP  (session required, ownership enforced on every :id)
+GET    /api/me
+GET    /api/shelves
+POST   /api/shelves
+PATCH  /api/shelves/:id
+DELETE /api/shelves/:id              confirm by typing the client name
+POST   /api/shelves/:id/logo
+GET    /api/shelves/:id/tools
+POST   /api/tools
+PATCH  /api/tools/:id
+DELETE /api/tools/:id
+POST   /api/tools/:id/shot
+POST   /api/tools/:id/snapshot       freeze current url + prompt + note
+POST   /api/tools/:id/make-live      body { version }
+POST   /api/tools/:id/confirm        re-date confirmed_at, no other change
+POST   /api/tools/:id/ping           rate limited
+POST   /api/reorder                  body { scope, ids[] }
+
+SCHEDULED
+cron   0 */6 * * *                   live check all tools with a live_url</code></pre>
+
+<div class="box warn">
+  <h3>Three guards that are part of the spec, not hardening later</h3>
+  <p><strong>Ownership.</strong> Every route taking an <code>:id</code> resolves it through the session user's account before doing anything. "Session required" is not the check. A test asserts that user A gets a 404, not a 403, on user B's tool.</p>
+  <p><strong>Live-check is an outbound fetch proxy.</strong> Allow <code>http</code> and <code>https</code> only. Reject localhost, private ranges, and cloud metadata endpoints by resolved host. Cap redirects at 3, timeout 5s, treat 200 to 399 as live. Rate limit the owner-triggered ping.</p>
+  <p><strong>No leakage.</strong> Public responses never include <code>prompt</code>, <code>builder_url</code>, <code>email</code>, or any other shelf's existence. Serialise public payloads through an explicit allowlist, never by deleting keys from the internal object.</p>
+</div>
+
+<h2>9. Stack</h2>
+
+<table>
+  <tr><th style="width:150px">Layer</th><th>Decision</th></tr>
+  <tr><td>Runtime</td><td><strong>Cloudflare Workers with static assets. Not Pages.</strong> Pages does not support Cron Triggers, Email Workers, Queue Consumers, or the Rate Limiting binding. Shelf needs the first and third. One deployable, git-push deploy, all bindings in one place.</td></tr>
+  <tr><td>Frontend</td><td>React + Vite + Tailwind + shadcn, served as static assets from the Worker</td></tr>
+  <tr><td>API</td><td>Hono on the same Worker</td></tr>
+  <tr><td>Database</td><td>D1</td></tr>
+  <tr><td>Files</td><td>R2. png/jpg, 2MB cap, validate by magic bytes not by filename</td></tr>
+  <tr><td>Sessions, rate limits</td><td>KV</td></tr>
+  <tr><td>Auth</td><td>Magic link, built in-app. No OAuth, no passwords, and not Cloudflare Access. See the box below.</td></tr>
+  <tr><td>Email</td><td>SendGrid, already provisioned at 50k a month. Cloudflare Email Routing alone can only send to verified destination addresses on your own account, which cannot sign up a stranger.</td></tr>
+</table>
+
+<div class="box warn">
+  <h3>Why not Cloudflare Access / Zero Trust</h3>
+  <p>Fair question, since Access does email one-time-PIN login for free and costs
+  nothing at small scale. It is the right tool for an internal route and the wrong
+  tool here, for four reasons that all point the same way.</p>
+  <p><strong>1. The pricing is per seat, and it is charged on signups, not on
+  customers.</strong> Zero Trust is free to 50 users, then $7 per user per month. Shelf
+  charges $29. A free-tier signup who never pays would cost $7 a month to exist, and a
+  paying Studio customer would hand a quarter of their revenue to the auth layer. You
+  would also hit the free ceiling at 50 signups, which means the failure arrives
+  exactly when the product starts working.</p>
+  <p><strong>2. Access authorises a list you configure, it does not let strangers sign
+  themselves up.</strong> Policies match on emails, domains, or IdP groups that an
+  account admin sets. Self-serve signup means calling the Cloudflare API to mutate an
+  Access group on every registration, which puts your user directory in Cloudflare's
+  policy engine instead of your own D1.</p>
+  <p><strong>3. It gates at the perimeter, and Shelf is half public by design.</strong>
+  Access sits in front of a hostname or path before your code runs. Shelf serves
+  <code>/s/:slug</code> to anonymous clients and <code>/app</code> to owners from the
+  same origin. Splitting those across hostnames to satisfy the auth layer is the tail
+  wagging the dog.</p>
+  <p><strong>4. The client never signs in at all.</strong> The handoff link has to work
+  for someone with no identity, and the passphrase gate is our own logic over a shelf
+  row. Access cannot express "unlisted link plus a shared word" without provisioning a
+  person.</p>
+  <p><strong>Where Access does belong:</strong> put it in front of Shelf's own internal
+  operator route, the one where you look at signups and caps. That is a fixed list of
+  one person, which is precisely what Access is for.</p>
+</div>
+
+<div class="box note">
+  <h3>On SendGrid specifically</h3>
+  <p>Chosen because it is provisioned, paid for at 50k a month, and has sending
+  history. Use a separate API key and its own sending subdomain, never one shared with
+  another product, so a deliverability problem here cannot spread anywhere else. Cloudflare Email Service is the viable alternative now that you can onboard a
+  sending domain, and it would keep everything on one platform. Either is fine. Do not
+  spend a session on it.</p>
+</div>
+
+<div class="box note">
+  <h3>Deploy split, the one that already bit you</h3>
+  <p>Workers-with-assets is chosen partly so there is no split. Frontend and API deploy together from one command. Do not later carve the API into a separate Worker for tidiness. The moment they deploy separately, one ships from a branch and the other from a working tree, and production breaks in a way that takes a session to find.</p>
+</div>
+
+<h2>10. Visual system</h2>
+
+<p>Direction: <strong>paper and shop window.</strong> A shelf is a physical object. Cards are things sitting on it, screenshots are the goods in the window. Warm, printed, slightly old-fashioned. It should look like a well-made catalogue, not a dashboard.</p>
+
+<h4>Palette</h4>
+<div class="sw">
+  <div><i style="background:#f4efe6"></i><b>Paper</b><span>#f4efe6</span></div>
+  <div><i style="background:#fbf8f3"></i><b>Card</b><span>#fbf8f3</span></div>
+  <div><i style="background:#ddd3c4"></i><b>Line</b><span>#ddd3c4</span></div>
+  <div><i style="background:#1c1914"></i><b>Ink</b><span>#1c1914</span></div>
+  <div><i style="background:#6b6459"></i><b>Muted</b><span>#6b6459</span></div>
+  <div><i style="background:#9b3d1f"></i><b>Rust</b><span>#9b3d1f</span></div>
+  <div><i style="background:#3d5a3a"></i><b>Moss</b><span>#3d5a3a</span></div>
+  <div><i style="background:#8a6d1f"></i><b>Amber</b><span>#8a6d1f</span></div>
+</div>
+
+<p>Rust is the only primary action colour. Moss means live. Amber means needs confirming. Muted grey means down, because a dead tool should feel absent rather than alarming. There is no blue anywhere in this product.</p>
+
+<div class="box warn">
+  <h3>The accent constraint, which drives everything else</h3>
+  <p>A client shelf can carry the client's accent colour. That means the chrome has to stay neutral enough that an arbitrary hex dropped into it does not collapse the design. Rust is Shelf's brand and appears in the app. On <code>/s/:slug</code> the client accent replaces rust and nothing else changes. Never put two saturated colours next to each other, because one of them will be a stranger's.</p>
+</div>
+
+<h4>Type</h4>
+<table>
+  <tr><th style="width:170px">Role</th><th>Spec</th></tr>
+  <tr><td>Display, headings</td><td>Fraunces, optical size high, weight 500 to 600. Tight tracking at large sizes, <code>-0.015em</code>.</td></tr>
+  <tr><td>Body, UI</td><td>IBM Plex Sans, 400 and 550. Body 16px / 1.65.</td></tr>
+  <tr><td>Meta, tags, dates</td><td>IBM Plex Sans 12px, uppercase, <code>0.07em</code> tracking, muted.</td></tr>
+  <tr><td>Scale</td><td>40 / 27 / 20 / 17 / 16 / 14 / 12. Do not add steps.</td></tr>
+  <tr><td>Hosting</td><td>Self-host both as woff2 from R2 or the assets dir. No Google Fonts request on a client-facing page.</td></tr>
+</table>
+
+<h4>Form</h4>
+<ul>
+  <li><strong>Radius 3px.</strong> Almost square. Paper does not have rounded corners.</li>
+  <li><strong>Borders, not shadows.</strong> One hairline in <code>--line</code>. At most one soft shadow in the whole product, on the drawer.</li>
+  <li><strong>The shelf edge.</strong> Each row of cards sits on a 2px ink rule that runs the full grid width, with a 1px lighter rule 3px below it. This is the one distinctive device in the design and it is what stops the grid reading as generic cards. Use it on the client shelf and the owner grid, not in the drawer. A section heading sits above its own run of shelves, set in Fraunces small caps against the rule, so a client with three projects reads as three shelf units on one wall.</li>
+  <li><strong>Screenshot is the hero.</strong> 16:10, full bleed to the card edges, no padding, no inner border. If there is no screenshot, show a paper-textured placeholder with the tag name set in Fraunces, never a grey box with an icon.</li>
+  <li>Spacing scale 4 / 8 / 12 / 16 / 24 / 32 / 56.</li>
+</ul>
+
+<h4>Components</h4>
+<table>
+  <tr><th style="width:150px">Component</th><th>Anatomy</th></tr>
+  <tr><td><strong>ToolCard</strong></td><td>Screenshot, then title in Fraunces 20, one sentence in muted 14 clamped to two lines, then a footer row: tag in small caps, LiveDot right-aligned. Whole card is the click target. Owner cards get a hover menu at top right.</td></tr>
+  <tr><td><strong>LiveDot</strong></td><td>7px filled circle plus a small-caps word. Moss "Live", muted "Down", amber "Needs confirming". Never a pill badge, never an emoji, never three colours at once.</td></tr>
+  <tr><td><strong>ShelfCard</strong></td><td>Row not card. Client logo or monogram, client name in Fraunces, tool count and last activity in muted, visibility pill, roll-up dot. Copy link button on hover.</td></tr>
+  <tr><td><strong>ToolDrawer</strong></td><td>Right side sheet, 480px, the one element with a shadow. Fields in the order in section 6. Primary button rust, full width, "Put it on the shelf".</td></tr>
+  <tr><td><strong>VersionList</strong></td><td>Vertical list, hairline between rows. Version number in Fraunces, note, date, and "Make this live" as a text button. Current version marked with a moss dot, not a badge.</td></tr>
+  <tr><td><strong>VisibilityToggle</strong></td><td>Four segmented options with a one-line explanation under the selected one. Private is default and visually the resting state.</td></tr>
+</table>
+
+<h4>Anti-patterns, explicitly banned</h4>
+<div class="do">
+  <div class="no">
+    <h4>Never</h4>
+    <ul>
+      <li>Purple, indigo, or violet anything</li>
+      <li>Gradient buttons or gradient text</li>
+      <li>Glassmorphism, blur, translucency</li>
+      <li>Rounded-2xl card stacks with drop shadows</li>
+      <li>Emoji as UI iconography</li>
+      <li>A feed, a like, a follower count</li>
+      <li>Skeleton shimmer loaders</li>
+      <li>Sparkle icons or "AI" as decoration</li>
+    </ul>
+  </div>
+  <div class="yes">
+    <h4>Instead</h4>
+    <ul>
+      <li>One warm neutral ground, one accent</li>
+      <li>Flat rust fills</li>
+      <li>Opaque cards on hairlines</li>
+      <li>Square-ish cards on a visible shelf rule</li>
+      <li>Small-caps text labels</li>
+      <li>A grid that ends</li>
+      <li>Paper-toned static placeholders</li>
+      <li>Nothing. The product does not mention AI.</li>
+    </ul>
+  </div>
+</div>
+
+<h4>Voice</h4>
+<p>Short lines. Hard returns. No em dashes. Banned: "not just X but Y", "Here's the thing", leverage, unlock, game-changer, seamless, effortless, and any soft opener. Approved strings:</p>
+<div class="copy">
+  <p><strong>Empty shelf:</strong> You shipped it. Park it here.</p>
+  <p><strong>Empty account:</strong> One shelf per client. Start with one.</p>
+  <p><strong>Add drawer:</strong> Title. One sentence. Link.</p>
+  <p><strong>Primary CTA:</strong> Put it on the shelf.</p>
+  <p><strong>Client shelf header:</strong> Tools we built for Maria.</p>
+  <p><strong>404:</strong> This shelf is closed.</p>
+  <p><strong>Stale card:</strong> Needs confirming. / Still true</p>
+  <p><strong>Open:</strong> Open tool</p>
+  <p style="margin-bottom:0"><strong>Version note example:</strong> Added tax line</p>
+</div>
+
+<h2>11. Build order</h2>
+
+<div class="slice"><h3><span>Slice 0</span> Repo</h3>
+<ul><li>Workers + static assets, wrangler.toml with D1, R2, KV bindings</li><li>Vite, Tailwind, shadcn init, fonts self-hosted</li><li>Migration 0001, FKs on</li><li>Seed script: one agency account, two client shelves, six tools</li><li>README with run steps only. Short.</li></ul></div>
+
+<div class="slice"><h3><span>Slice 1</span> Auth</h3>
+<ul><li>Magic link through SendGrid, single-use 15 minute token</li><li>KV session, rate limits on send and verify</li><li>First login creates user, handle from email local-part with collision suffix</li><li><code>/app</code> empty state</li></ul></div>
+
+<div class="slice"><h3><span>Slice 2</span> Shelves and tools</h3>
+<ul><li>Create, rename, delete a shelf. Delete confirms by typing the client name.</li><li>Add drawer, tool CRUD including delete, reorder</li><li>Sections: free-text field with autocomplete, grouped rendering, order by min sort_order</li><li>Screenshot upload to R2, magic-byte validation</li><li>Ownership checks and their tests land here, not later</li></ul></div>
+
+<div class="slice"><h3><span>Slice 3</span> The handoff</h3>
+<ul><li>Visibility triad plus password, clamping, 404 copy</li><li><code>/s/:slug</code> and tool detail</li><li>Client branding: name, logo, accent</li><li>Copy client link</li><li>Public payload allowlist and its leak test</li></ul></div>
+
+<div class="slice"><h3><span>Slice 4</span> Memory</h3>
+<ul><li>Prompt pocket</li><li>Snapshot on URL change, note required, 80 char cap, defaults to "Updated link"</li><li>Version list and Make this live</li><li>Builder chip, owner-only</li></ul></div>
+
+<div class="slice"><h3><span>Slice 5</span> Truth</h3>
+<ul><li>Cron live check with the SSRF guard</li><li>On-demand ping, rate limited</li><li>confirmed_at, 90 day flag, Still true</li><li>Status roll-up on the shelves list</li></ul></div>
+
+<div class="slice"><h3><span>Slice 6</span> Only after the kill test passes</h3>
+<ul><li>Soft plan caps and banner</li><li>OG images</li><li>Stripe</li><li>views via KV</li></ul></div>
+
+<p><strong>Stop after slice 5 and hand back a preview URL.</strong> If you must cut: drag reorder, OG, builder chips, client logo. Do not cut: visibility rules, screenshots, prompt field, 404 copy, ownership checks, confirmed_at.</p>
+
+<h2>12. Validation</h2>
+
+<h4>Automated, these are the tests that must exist</h4>
+<ol>
+  <li>Private shelf returns 404 to a logged-out request</li>
+  <li>Owner can load their own private shelf</li>
+  <li>User A gets 404, not 403, on user B's tool for GET, PATCH and DELETE</li>
+  <li>Creating a tool with no title or no live_url fails</li>
+  <li>Public payload contains no prompt, builder_url, or email</li>
+  <li>A tool cannot be public under a private shelf</li>
+  <li>Reorder persists</li>
+  <li>Changing live_url creates a snapshot holding the previous URL</li>
+  <li>Make-live writes the snapshot URL onto the tool</li>
+  <li>Live check rejects localhost, a private IP, and a non-http scheme</li>
+  <li>Deleting a shelf removes its tools and snapshots</li>
+  <li>A magic link token cannot be used twice</li>
+</ol>
+
+<h4>Manual click script</h4>
+<ol>
+  <li>Sign in, create shelf "Maria's Bakery"</li>
+  <li>Add Flour run log with a prompt, upload a screenshot</li>
+  <li>Set shelf to unlisted, copy the client link, open it in a private window</li>
+  <li>Confirm no other shelf is discoverable from it</li>
+  <li>Change the live URL with note "v2 vendor names"</li>
+  <li>Version list shows v1 and v2, make v1 live again</li>
+  <li>Set a passphrase, confirm the unlock gate</li>
+  <li>Log out, confirm <code>/app</code> is unreachable</li>
+  <li>Unknown slug returns the closed copy</li>
+</ol>
+
+<div class="box warn">
+  <h3>Kill test, run after it has been used on two real clients for three weeks</h3>
+  <p><strong>Pass:</strong> a client link gets sent to an actual client without prompting, twice. A second shelf is created without coaching. A prompt pocket is read in a later session, by someone trying to find something.</p>
+  <p><strong>Fail:</strong> one vanity shelf and a bounce. Nobody sends a link. Every feature request is a version of "can it build the app". If it fails, do not build Stripe.</p>
+</div>
+
+<h2>13. Pricing</h2>
+
+<table>
+  <tr><th style="width:150px">Tier</th><th>Includes</th><th style="width:110px">Price</th></tr>
+  <tr><td><strong>Free</strong></td><td>1 shelf, 5 tools, "Built on Shelf" footer badge. Enough to try it on one real client.</td><td>$0</td></tr>
+  <tr><td><strong>Studio</strong></td><td>Unlimited shelves and tools, passphrase protection, client branding, no badge.</td><td>$29 / mo</td></tr>
+</table>
+
+<p>Two tiers, not three. The $12 owner tier from the original is deleted: it is a Linktree price without Linktree's distribution, and it anchors the product below what the agency case is worth. Custom domains and seats become the future third tier when someone asks for them.</p>
+
+<p>No Stripe in v1. Enforce as a soft cap with a banner and a waitlist link, which also measures demand before you build billing.</p>
+
+<h2>14. Open decisions</h2>
+<ol>
+  <li><strong>Name.</strong> "Shelf" is a good working name and a hard domain. Decide before the marketing page, not after.</li>
+  <li><strong>Public profile.</strong> Section 5 allows a public shelf but there is no <code>/@handle</code> page in v1. Probably correct. Revisit if the secondary persona shows up.</li>
+  <li><strong>Screenshot capture.</strong> Upload only in v1, as specified. Auto-capture is the single most requested thing this product will get asked for. It is a v2 conversation, and it is a real cost centre.</li>
+</ol>
+
+<footer>
+Shelf PRD v1 &middot; supersedes SHELF_HANDOFF.md where they conflict &middot; see SHELF-VALIDATION.html for the reasoning behind the agency-first inversion
+</footer>
+
+</div>
+</body>
+</html>

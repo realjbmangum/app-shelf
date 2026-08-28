@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+  <style>
+    body { margin:0; font-family:"IBM Plex Sans", system-ui, sans-serif; background:#f4efe6; color:#1c1914; }
+    a { color:#9b3d1f; text-decoration:none; } a:hover { color:#7d3018; }
+  </style>
+</helmet>
+
+<div style="width:1440px; height:860px; background:#f4efe6; display:flex; flex-direction:column;">
+
+  <div style="height:64px; border-bottom:1px solid #ddd3c4; display:flex; align-items:center; justify-content:space-between; padding:0 40px; background:#f4efe6;">
+    <div style="font-family:Fraunces, Georgia, serif; font-size:20px; font-weight:600; letter-spacing:-0.01em;">Shelf</div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <div style="font-size:14px; color:#6b6459;">brian</div>
+      <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:#6b6459; border:1px solid #ddd3c4; border-radius:3px; padding:3px 9px;">Free</div>
+      <div style="width:30px; height:30px; border-radius:3px; background:#1c1914; color:#f4efe6; display:flex; align-items:center; justify-content:center; font-family:Fraunces, Georgia, serif; font-size:14px;">B</div>
+    </div>
+  </div>
+
+  <div style="flex-grow:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:40px; padding-bottom:60px;">
+
+    <div style="display:flex; flex-direction:column; align-items:center; gap:14px;">
+      <div style="font-family:Fraunces, Georgia, serif; font-size:40px; font-weight:500; letter-spacing:-0.015em;">One shelf per client.</div>
+      <div style="font-family:Fraunces, Georgia, serif; font-size:40px; font-weight:500; letter-spacing:-0.015em; color:#6b6459;">Start with one.</div>
+    </div>
+
+    <div style="height:46px; background:#9b3d1f; border-radius:3px; display:flex; align-items:center; padding:0 26px; color:#fbf8f3; font-size:16px; font-weight:550;">New shelf</div>
+
+    <div style="display:flex; flex-direction:column; gap:0; width:900px; margin-top:16px;">
+      <div style="display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:24px;">
+        <div style="height:150px; border:1px dashed #ddd3c4; border-radius:3px;"></div>
+        <div style="height:150px; border:1px dashed #ddd3c4; border-radius:3px;"></div>
+        <div style="height:150px; border:1px dashed #ddd3c4; border-radius:3px;"></div>
+      </div>
+      <div style="height:2px; background:#ddd3c4; margin-top:0;"></div>
+      <div style="height:1px; background:#e8e0d2; margin-top:3px;"></div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
