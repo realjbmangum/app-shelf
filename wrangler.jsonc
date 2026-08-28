@@ -1,0 +1,41 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "shelf",
+  "main": "./worker/index.ts",
+  "compatibility_date": "2026-08-28",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Static assets + API on ONE deployable. Do not split these apart later:
+  // the moment they deploy separately, one ships from a branch and the other
+  // from a working tree. See CLAUDE.md.
+  "assets": {
+    "directory": "./dist/",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "shelf-db",
+      "database_id": "a40886d1-a4c5-435e-bfd6-da4965b87afa",
+      "migrations_dir": "migrations"
+    }
+  ],
+
+  "kv_namespaces": [
+    { "binding": "KV", "id": "cfa41a73d4fe4bddaa55a1fdb01c6f57" }
+  ],
+
+  "r2_buckets": [
+    { "binding": "FILES", "bucket_name": "shelf-files" }
+  ],
+
+  // Slice 5. Pages cannot do this, which is why this project is a Worker.
+  "triggers": {
+    "crons": ["0 */6 * * *"]
+  },
+
+  "observability": { "enabled": true }
+}

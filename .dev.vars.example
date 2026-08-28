@@ -1,0 +1,4 @@
+# Copy to .dev.vars (gitignored) and fill in. Slice 1 needs these.
+# Production values go in `wrangler secret put SENDGRID_API_KEY`.
+SENDGRID_API_KEY=
+SENDGRID_FROM=no-reply@mail.example.com

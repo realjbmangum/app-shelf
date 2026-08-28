@@ -1,0 +1,38 @@
+{
+  "name": "app-shelf",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
+    "typecheck": "tsc -b --noEmit",
+    "cf-typegen": "wrangler types",
+    "db:local": "wrangler d1 execute shelf-db --local --file",
+    "db:remote": "wrangler d1 execute shelf-db --remote --file",
+    "db:migrate": "wrangler d1 execute shelf-db --local --file ./migrations/0001_init.sql",
+    "db:seed": "wrangler d1 execute shelf-db --local --file ./seed/seed.sql",
+    "db:reset": "npm run db:migrate && npm run db:seed"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "hono": "^4.6.14",
+    "lucide-react": "^0.468.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^2.5.5",
+    "ulid": "^2.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5",
+    "wrangler": "^4.58.0"
+  }
+}
