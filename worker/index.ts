@@ -3,6 +3,11 @@ import { HTTPException } from "hono/http-exception";
 import type { Env } from "./types";
 import { requireAuth, type Vars } from "./middleware";
 import { auth } from "./routes/auth";
+import { shelves } from "./routes/shelves";
+import { tools } from "./routes/tools";
+import { publicShelf } from "./routes/publicShelf";
+import { versions } from "./routes/versions";
+import { livecheck, runScheduledCheck } from "./routes/livecheck";
 
 // One Worker serves the API and the built SPA. `run_worker_first` in
 // wrangler.jsonc routes /api/* here; everything else is served from assets
@@ -10,6 +15,15 @@ import { auth } from "./routes/auth";
 const app = new Hono<{ Bindings: Env; Variables: Vars }>();
 
 app.route("/api/auth", auth);
+app.route("/api/shelves", shelves);
+app.route("/api/tools", tools);
+app.route("/api/tools", versions);   // /:id/versions, /:id/snapshot, /:id/make-live, /:id/confirm
+app.route("/api/tools", livecheck);  // /:id/ping
+
+// No session anywhere under here. Every response is built by an explicit
+// allowlist, and a private shelf is indistinguishable from one that does not
+// exist. See publicShelf.ts.
+app.route("/api/s", publicShelf);
 
 // Proves the scaffold: every binding is reachable and the schema is applied.
 app.get("/api/health", async (c) => {
@@ -63,7 +77,11 @@ app.all("*", (c) => c.env.ASSETS.fetch(c.req.raw));
 
 export default {
   fetch: app.fetch,
-  async scheduled(_event: ScheduledController, _env: Env, _ctx: ExecutionContext) {
-    console.log("live check: not implemented until slice 5");
+  async scheduled(_event: ScheduledController, env: Env, ctx: ExecutionContext) {
+    ctx.waitUntil(
+      runScheduledCheck(env).then(({ checked, down }) =>
+        console.log(`live check: ${checked} checked, ${down} down`)
+      )
+    );
   },
 } satisfies ExportedHandler<Env>;
