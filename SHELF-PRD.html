@@ -120,12 +120,13 @@
     <ul>
       <li>Any kind of app generator</li>
       <li>Hosting other people's runtimes</li>
-      <li>Git, diffs, CI, code storage</li>
+      <li>Git, diffs, CI, branches, merges</li>
       <li>Likes, comments, feeds, remix</li>
       <li>Team seats and roles</li>
       <li>Custom domains (column reserved)</li>
       <li>Stripe billing (v1.5, gated on the kill test)</li>
       <li>View analytics (v1.5, see 7.4)</li>
+      <li>Frozen build copies (v1.5, see 7.6)</li>
     </ul>
   </div>
 </div>
@@ -311,6 +312,37 @@ CREATE INDEX idx_snapshots_tool   ON snapshots(tool_id, version);</code></pre>
 
 <h4>4. views table dropped from v1</h4>
 <p>It was a D1 write per public page view, on the one table with unbounded traffic, to produce the least valuable number in the product. Ships in v1.5 as a KV counter flushed on a schedule, if anyone asks for it.</p>
+
+<h4>6. No frozen build copy in v1, and this is the riskiest cut in the document</h4>
+<p>A version today stores four things: the previous URL, the previous prompt, an
+80 character note, and a screenshot. It is a memory of what you pointed at and
+what you asked for. It is not a copy of the tool.</p>
+
+<p>That collides with the product's own survival argument. Roughly half the AI app
+builders launched in 2025 were dead by April 2026, and Shelf's case for existing
+is that it outlives them. It cannot. If the host a tool sits on folds, Shelf holds
+a dead link and a photograph of something nobody can run, and the shelf that was
+supposed to be the durable record becomes the most painful evidence that it was
+not.</p>
+
+<p>The fix is <strong>not</strong> git. It is one nullable <code>zip_key</code> on
+<code>snapshots</code> plus <code>zips/{user_id}/{tool_id}/v{n}.zip</code> in R2:
+a frozen copy of the built tool, attached to a version. No branches, no diffs, no
+merges, and the UI never says any of those words. The owner sees "Keep a copy" and
+"Download this version". The client never sees it at all. It is an insurance
+policy against the host disappearing, which is the single most likely way a tool
+on a shelf dies.</p>
+
+<div class="box note">
+  <h3>Why it is v1.5 and not v1</h3>
+  <p>Two real costs. R2 storage stops being free at volume, and unlike every other
+  field on a version it grows without bound. More importantly the zip has to come
+  from somewhere: the builders do not all export cleanly, so v1.5 means a manual
+  upload, and a copy nobody remembers to upload proves nothing. Ship it after the
+  kill test tells us whether people return to a shelf at all. If they do not, the
+  insurance was never needed.</p>
+  <p>It needs migration 0002. Do not add the column speculatively before then.</p>
+</div>
 
 <h4>5. section is free text, tag stays an enum</h4>
 <p>They are different axes and both are useful. <code>section</code> answers "which
@@ -551,7 +583,7 @@ cron   0 */6 * * *                   live check all tools with a live_url</code>
 <ul><li>Cron live check with the SSRF guard</li><li>On-demand ping, rate limited</li><li>confirmed_at, 90 day flag, Still true</li><li>Status roll-up on the shelves list</li></ul></div>
 
 <div class="slice"><h3><span>Slice 6</span> Only after the kill test passes</h3>
-<ul><li>Soft plan caps and banner</li><li>OG images</li><li>Stripe</li><li>views via KV</li></ul></div>
+<ul><li>Soft plan caps and banner</li><li>OG images</li><li>Stripe</li><li>views via KV</li><li>Frozen build copies per version, see 7.6. Take this one first if the kill test passes on the strength of the client link, because that is the case where a dead host hurts a paying customer.</li></ul></div>
 
 <p><strong>Stop after slice 5 and hand back a preview URL.</strong> If you must cut: drag reorder, OG, builder chips, client logo. Do not cut: visibility rules, screenshots, prompt field, 404 copy, ownership checks, confirmed_at.</p>
 
@@ -608,6 +640,12 @@ cron   0 */6 * * *                   live check all tools with a live_url</code>
 <ol>
   <li><strong>Name.</strong> "Shelf" is a good working name and a hard domain. Decide before the marketing page, not after.</li>
   <li><strong>Public profile.</strong> Section 5 allows a public shelf but there is no <code>/@handle</code> page in v1. Probably correct. Revisit if the secondary persona shows up.</li>
+  <li><strong>How much of a tool should Shelf actually hold.</strong> Today: a link,
+   a prompt and a picture. The frozen build copy in 7.6 is the next rung and is
+   specced but not built. The rung above that, storing source and rendering diffs,
+   is the app-builder pivot this document exists to prevent. The line between the
+   second and third rungs is the most important one in the product and it should be
+   redrawn deliberately, never by drift.</li>
   <li><strong>Screenshot capture.</strong> Upload only in v1, as specified. Auto-capture is the single most requested thing this product will get asked for. It is a v2 conversation, and it is a real cost centre.</li>
 </ol>
 

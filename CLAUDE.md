@@ -110,3 +110,17 @@ sells to developers, who will not pay for this.
 - Build Stripe before the kill test passes (PRD section 12).
 - Rebuild the `views` table. It was cut on purpose: a D1 write per public
   page view on the one unbounded-traffic table.
+
+## Do, eventually
+
+**Frozen build copies (PRD 7.6).** A version stores a link, a prompt and a
+picture. It does not store the tool. If the host a tool sits on folds, Shelf
+holds a dead link and a photograph, which is the opposite of the durability
+it sells. The fix is one nullable `zip_key` on `snapshots` plus
+`zips/{user_id}/{tool_id}/v{n}.zip`, and the UI says "Keep a copy" and
+"Download this version" and never says branch, diff or merge. It is v1.5
+because the storage grows without bound and a copy nobody uploads proves
+nothing, not because it is optional.
+
+This is the riskiest cut in the spec. It was dropped once already without
+being flagged. Do not drop it again silently.
