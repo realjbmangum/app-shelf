@@ -8,6 +8,7 @@ import { tools } from "./routes/tools";
 import { publicShelf } from "./routes/publicShelf";
 import { versions } from "./routes/versions";
 import { livecheck, runScheduledCheck } from "./routes/livecheck";
+import { files } from "./routes/files";
 
 // One Worker serves the API and the built SPA. `run_worker_first` in
 // wrangler.jsonc routes /api/* here; everything else is served from assets
@@ -24,6 +25,7 @@ app.route("/api/tools", livecheck);  // /:id/ping
 // allowlist, and a private shelf is indistinguishable from one that does not
 // exist. See publicShelf.ts.
 app.route("/api/s", publicShelf);
+app.route("/api/files", files);
 
 // Proves the scaffold: every binding is reachable and the schema is applied.
 app.get("/api/health", async (c) => {

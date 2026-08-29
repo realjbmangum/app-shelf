@@ -201,10 +201,14 @@ versions.post("/:id/make-live", async (c) => {
     .bind(snapshot.live_url, snapshot.prompt, now, now, tool.id)
     .run();
 
+  // prompt is returned because the UPDATE above rewrites it. A response that
+  // reports live_url but hides the prompt change leaves the owner's prompt
+  // pocket showing text that is no longer stored.
   return c.json({
     ok: true,
     version: snapshot.version,
     live_url: snapshot.live_url,
+    prompt: snapshot.prompt,
     confirmed_at: now,
   });
 });
