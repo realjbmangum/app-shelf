@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Check, Copy, ExternalLink } from "lucide-react";
 import { api, ApiError } from "@/lib/api";
+import StackList from "@/components/StackList";
 import type { Shelf, Snapshot, Tag, Tool, ToolStatus } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import {
@@ -392,10 +393,8 @@ export default function ToolDetail({ tool, shelf, onChanged }: Props) {
               unfindable. Owner-only, same as the prompt. */}
           {current.stack && (
             <section className="mb-4 rounded-md border border-line bg-card px-5 py-[18px]">
-              <Meta className="mb-2.5 block">Built with</Meta>
-              <p className="whitespace-pre-wrap text-sm leading-[1.6] text-ink">
-                {current.stack}
-              </p>
+              <Meta className="mb-3.5 block">Built with</Meta>
+              <StackList stack={current.stack} />
             </section>
           )}
 

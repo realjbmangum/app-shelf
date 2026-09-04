@@ -74,6 +74,7 @@ export type PublicTool = {
 
 export type PublicToolDetail = PublicTool & {
   live_url: string;
+  stack: string | null;
   version: number;
   latest_note: string | null;
 };

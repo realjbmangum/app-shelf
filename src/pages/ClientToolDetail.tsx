@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState, type CSSProperties } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import StackList from "@/components/StackList";
 import { api, ApiError } from "@/lib/api";
 import type { PublicShelf, PublicToolDetail } from "@/lib/types";
 import { Button, LiveDot, Meta, ShelfEdge, ShotPlaceholder, shotUrl , relativeTime, focusRing } from "@/components/ui/primitives";
@@ -233,6 +234,13 @@ export default function ClientToolDetail(props: { slug?: string; toolId?: string
                 <p className="text-sm text-muted">This link is not available.</p>
               )}
             </div>
+
+            {tool.stack && (
+              <section className="mt-8 border-t border-line pt-6">
+                <Meta className="mb-3.5 block">Built with</Meta>
+                <StackList stack={tool.stack} />
+              </section>
+            )}
 
             {tool.latest_note && (
               <p className="mt-8 border-t border-line pt-6 text-sm leading-relaxed text-muted">

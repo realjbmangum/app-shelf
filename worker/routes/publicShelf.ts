@@ -112,11 +112,15 @@ type ToolRow = {
   sort_order: number;
 };
 
-type ToolDetailRow = ToolRow & { live_url: string; version: number };
+type ToolDetailRow = ToolRow & { live_url: string; version: number; stack: string | null };
 
 /* ---------------------------------------------------------------------------
  * SERIALISERS. The allowlist. Read these as the definition of what a
  * stranger is allowed to know.
+ *
+ * `stack` is present on the tool DETAIL only, by explicit decision: a
+ * client is allowed to know what their own tool runs on. It is still absent
+ * from the grid.
  *
  * Never present, at any depth: prompt, builder, builder_url, user_id,
  * shelf_id, password_hash, email, handle, custom_domain, visibility,
@@ -154,6 +158,10 @@ const publicToolDetail = (t: ToolDetailRow, latestNote: string | null) => ({
   ...publicTool(t),
   live_url: t.live_url,
   version: t.version,
+  // Deliberate: what a tool is built on is shown to the client, on the detail
+  // screen only. Added by decision, not by spreading a row. prompt and
+  // builder_url stay out.
+  stack: t.stack,
   latest_note: latestNote,
 });
 
@@ -359,7 +367,7 @@ publicShelf.get("/:slug/:toolId", async (c) => {
   // open slug becomes a reader for any tool id in the table.
   const tool = await c.env.DB.prepare(
     `SELECT id, title, blurb, section, tag, status, screenshot_key,
-            confirmed_at, sort_order, live_url, version
+            confirmed_at, stack, sort_order, live_url, version
        FROM tools
       WHERE id = ?
         AND shelf_id = ?
