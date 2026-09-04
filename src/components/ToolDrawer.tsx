@@ -229,6 +229,7 @@ export default function ToolDrawer({
   const panelRef = useRef<HTMLDivElement>(null);
   // Which live_url we have already warned about, so the warning does not
   // reappear and block the second save.
+  const [stack, setStack] = useState("");
   const warnedUrlRef = useRef<string | null>(null);
   const titleRef = useRef<HTMLInputElement>(null);
   const urlRef = useRef<HTMLInputElement>(null);
@@ -266,6 +267,7 @@ export default function ToolDrawer({
     setSection(tool?.section ?? "");
     setTag(tool?.tag ?? null);
     setVisibility(tool?.visibility ?? "private");
+    setStack(tool?.stack ?? "");
     setPrompt(tool?.prompt ?? "");
     setBuilder(tool?.builder ?? null);
     setBuilderUrl(tool?.builder_url ?? "");
@@ -400,6 +402,7 @@ export default function ToolDrawer({
       section: section.trim() || null,
       tag,
       visibility,
+      stack: stack.trim() || null,
       prompt: prompt.trim() || null,
       builder,
       builder_url: bUrl,
@@ -776,7 +779,29 @@ export default function ToolDrawer({
               )}
             </Field>
 
-            {/* 8. Prompt pocket */}
+            {/* 8. Built with. Sits before the prompt because it is the shorter
+                answer and the one you can fill in without going hunting. */}
+            <div>
+              <label htmlFor={id("stack")} className="sr-only">
+                Built with
+              </label>
+              <Field label="Built with" hint="Front end, back end, where it runs. Only you see this.">
+                <textarea
+                  id={id("stack")}
+                  value={stack}
+                  onChange={(e) => setStack(e.target.value)}
+                  maxLength={20000}
+                  rows={3}
+                  placeholder="Astro + Tailwind, D1, Cloudflare Pages"
+                  className={cn(
+                    inputClass,
+                    "h-auto min-h-[76px] resize-y py-3 text-[13px] leading-[1.6]"
+                  )}
+                />
+              </Field>
+            </div>
+
+            {/* 9. Prompt pocket */}
             <div>
               <label htmlFor={id("prompt")} className="sr-only">
                 Prompt pocket

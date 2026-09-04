@@ -51,6 +51,8 @@ export type Tool = {
   status: ToolStatus;
   checked_at: number | null;
   confirmed_at: number | null;
+  /** What it runs on. Owner-only, never in the public payload. */
+  stack: string | null;
   prompt: string | null;
   builder: Builder | null;
   builder_url: string | null;

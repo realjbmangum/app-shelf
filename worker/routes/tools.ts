@@ -69,6 +69,7 @@ type ToolRow = {
   status: Status;
   checked_at: number | null;
   confirmed_at: number | null;
+  stack: string | null;
   prompt: string | null;
   builder: Builder | null;
   builder_url: string | null;
@@ -220,6 +221,7 @@ function ownerTool(t: ToolRow) {
     status: t.status,
     checked_at: t.checked_at,
     confirmed_at: t.confirmed_at,
+    stack: t.stack,
     prompt: t.prompt,
     builder: t.builder,
     builder_url: t.builder_url,
@@ -295,6 +297,7 @@ tools.post("/", async (c) => {
     prompt: text(body, "prompt", MAX.prompt) ?? null,
     builder: enumValue(body, "builder", BUILDERS) ?? null,
     builder_url: builderUrl,
+    stack: text(body, "stack", MAX.prompt) ?? null,
     created_at: now,
     updated_at: now,
   };
@@ -303,8 +306,8 @@ tools.post("/", async (c) => {
     `INSERT INTO tools
        (id, shelf_id, title, blurb, live_url, screenshot_key, section, tag,
         visibility, sort_order, version, status, checked_at, confirmed_at,
-        prompt, builder, builder_url, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+        stack, prompt, builder, builder_url, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
   )
     .bind(
       row.id,
@@ -321,6 +324,7 @@ tools.post("/", async (c) => {
       row.status,
       row.checked_at,
       row.confirmed_at,
+      row.stack,
       row.prompt,
       row.builder,
       row.builder_url,
@@ -419,6 +423,7 @@ tools.patch("/:id", async (c) => {
     reconfirm = true;
   }
 
+  if ("stack" in body) set("stack", text(body, "stack", MAX.prompt));
   if ("prompt" in body) {
     set("prompt", text(body, "prompt", MAX.prompt));
     reconfirm = true;

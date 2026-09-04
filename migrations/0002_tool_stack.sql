@@ -1,0 +1,12 @@
+-- What a tool is actually built on, as its own field.
+--
+-- This started life appended to `prompt` as a "Built with:" paragraph, which
+-- buried it three clicks deep inside the prompt pocket and mixed two
+-- different kinds of fact: what you asked for, and what it runs on. They
+-- change at different times for different reasons, so they are separate
+-- columns.
+--
+-- Owner-only, like prompt. It is not in the public allowlist in
+-- publicShelf.ts, so a client never sees it unless that is a deliberate
+-- decision made there.
+ALTER TABLE tools ADD COLUMN stack TEXT;

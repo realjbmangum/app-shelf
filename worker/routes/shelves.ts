@@ -65,6 +65,7 @@ type ToolRow = {
   status: "live" | "down" | "draft";
   checked_at: number | null;
   confirmed_at: number | null;
+  stack: string | null;
   prompt: string | null;
   builder: string | null;
   builder_url: string | null;
@@ -122,6 +123,7 @@ function ownerTool(row: ToolRow, now: number) {
     confirmed_at: row.confirmed_at,
     // Computed here so the 90 day rule has one definition, not one per screen.
     needs_confirming: needsConfirming(row.confirmed_at, now),
+    stack: row.stack,
     prompt: row.prompt,
     builder: row.builder,
     builder_url: row.builder_url,

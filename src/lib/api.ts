@@ -36,7 +36,7 @@ export type ShelfInput = Partial<
 
 export type ToolInput = Partial<
   Pick<Tool, "title" | "blurb" | "live_url" | "section" | "tag" | "visibility" |
-             "sort_order" | "status" | "prompt" | "builder" | "builder_url">
+             "sort_order" | "status" | "stack" | "prompt" | "builder" | "builder_url">
 >;
 
 export const api = {

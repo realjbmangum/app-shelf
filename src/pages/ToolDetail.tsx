@@ -386,6 +386,19 @@ export default function ToolDetail({ tool, shelf, onChanged }: Props) {
           <div aria-hidden className="my-8 h-px bg-line" />
           <Meta className="mb-3 block">Only you can see the rest</Meta>
 
+          {/* Built with. Its own block, above the prompt: what a tool runs on
+              and what you asked for are different facts that change at
+              different times, and burying the stack inside the prompt made it
+              unfindable. Owner-only, same as the prompt. */}
+          {current.stack && (
+            <section className="mb-4 rounded-md border border-line bg-card px-5 py-[18px]">
+              <Meta className="mb-2.5 block">Built with</Meta>
+              <p className="whitespace-pre-wrap text-sm leading-[1.6] text-ink">
+                {current.stack}
+              </p>
+            </section>
+          )}
+
           {/* Prompt pocket. */}
           {current.prompt ? (
             <section className="rounded-md border border-line bg-card px-5 py-[18px]">
